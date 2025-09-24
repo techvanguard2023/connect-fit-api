@@ -90,11 +90,10 @@ class StripeController extends Controller
         switch ($event->type) {
             case 'customer.subscription.created':
                 $session = $event->data->object;
-                if (!$session->subscription) break;
 
-                $subscription = $this->stripe->subscriptions->retrieve($session->subscription, ['expand' => ['items.data.price']]);
-                $customerId   = $subscription->customer;
-                $priceId      = $subscription->items->data[0]->price->id ?? null;
+                $subscription = $this->stripe->subscriptions->retrieve($session->id);
+                $customerId   = $session->customer;
+                $priceId      = $session->items->data[0]->price->id ?? null;
 
                 $user = User::where('stripe_customer_id', $customerId)->first();
                 $plan = Plan::where('stripe_price_id', $priceId)->first();
