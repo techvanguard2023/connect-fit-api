@@ -90,7 +90,7 @@ class StripeController extends Controller
         }
 
         switch ($event->type) {
-            case 'checkout.session.completed':
+            case 'customer.subscription.created':
                 $session = $event->data->object;
                 if (!$session->subscription) break;
 
