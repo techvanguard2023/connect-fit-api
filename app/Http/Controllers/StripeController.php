@@ -103,12 +103,12 @@ class StripeController extends Controller
                         [
                             'user_id' => $user->id,
                             'plan_id' => $plan->id,
-                            'stripe_subscription_id' => $subscription->id,
+                            'stripe_subscription_id' => $session->id,
                         ],
                         [
-                            'start_date' => Carbon::createFromTimestamp($subscription->current_period_start)->toDateString(),
-                            'end_date'   => Carbon::createFromTimestamp($subscription->current_period_end)->toDateString(),
-                            'status'     => in_array($subscription->status, ['active', 'trialing']),
+                            'start_date' => Carbon::createFromTimestamp($session->items->data[0]->current_period_start)->toDateString(),
+                            'end_date'   => Carbon::createFromTimestamp($session->items->data[0]->current_period_end)->toDateString(),
+                            'status'     => in_array($session->status, ['active', 'trialing']),
                         ]
                     );
                 }
