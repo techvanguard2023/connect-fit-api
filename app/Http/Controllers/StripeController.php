@@ -122,8 +122,8 @@ class StripeController extends Controller
                 $user = User::where('stripe_customer_id', $sub->customer)->first();
                 if ($user) {
                     Subscription::where('stripe_subscription_id', $sub->id)->update([
-                        'start_date' => Carbon::createFromTimestamp($sub->current_period_start)->toDateString(),
-                        'end_date'   => Carbon::createFromTimestamp($sub->current_period_end)->toDateString(),
+                        'start_date' => Carbon::createFromTimestamp($sub->items->data[0]->current_period_start)->toDateString(),
+                            'end_date'   => Carbon::createFromTimestamp($sub->items->data[0]->current_period_end)->toDateString(),
                         'status'     => in_array($sub->status, ['active', 'trialing']),
                     ]);
                 }

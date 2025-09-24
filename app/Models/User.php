@@ -70,7 +70,7 @@ class User extends Authenticatable
     public function currentSubscription()
     {
         return $this->hasOne(Subscription::class)
-            ->where('status', true)
+            ->where('status', 'active')
             ->whereDate('start_date', '<=', now())
             ->whereDate('end_date', '>=', now())
             ->latestOfMany('end_date'); // pega a de maior end_date
