@@ -15,9 +15,10 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained()->onDelete('cascade');
             $table->foreignId('plan_id')->constrained()->onDelete('cascade');
+            $table->string('stripe_subscription_id')->nullable()->index();
             $table->date('start_date');
             $table->date('end_date');
-            $table->boolean('status')->default(true);
+            $table->string('status')->default('active'); //"active"|"inactive"|"expired"
             $table->timestamps();
             $table->softDeletes();
         });

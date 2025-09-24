@@ -9,8 +9,11 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
-use Illuminate\Validation\Rules\Password;
+use Illuminate\Validation\Rules\Password as PasswordRule;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Password;
+use Illuminate\Auth\Events\PasswordReset;
+use Illuminate\Support\Str;
 
 class AuthController extends Controller
 {
@@ -80,7 +83,7 @@ class AuthController extends Controller
             'name'              => ['required', 'string', 'max:255'],
             'email'             => ['required', 'email', 'max:255', 'unique:users,email'],
             'phone'             => ['required', 'string', 'max:50'],
-            'password'          => ['required', Password::min(8)->mixedCase()->numbers()->symbols()],
+            'password'          => ['required', PasswordRule::min(8)->mixedCase()->numbers()->symbols()],
             'profile_picture'   => ['nullable', 'string', 'max:2048'],
             'email_verified_at' => ['nullable', 'date'],
             'opt_in'            => ['required', 'boolean'],
@@ -99,5 +102,55 @@ class AuthController extends Controller
             'user'  => $user,
             'token' => $token,
         ], Response::HTTP_CREATED);
+    }
+
+
+   // Envia o link de reset para o e-mail do usuário
+    public function forgotPassword(Request $request)
+    {
+        $request->validate(['email' => ['required', 'email']]);
+
+        $status = Password::sendResetLink($request->only('email'));
+
+        if ($status === Password::RESET_LINK_SENT) {
+            return response()->json(['message' => __($status)], Response::HTTP_OK);
+        }
+
+        // INVALID_USER, etc.
+        return response()->json(['message' => __($status)], Response::HTTP_UNPROCESSABLE_ENTITY);
+    }
+
+    // Reseta a senha com token + email
+    public function resetPassword(Request $request)
+    {
+        $request->validate([
+            'email'                 => ['required', 'email'],
+            'token'                 => ['required'],
+            'password'              => ['required', PasswordRule::min(8)->mixedCase()->numbers()->symbols(), 'confirmed'],
+            // ESPERA password_confirmation no payload
+        ]);
+
+        $status = Password::reset(
+            $request->only('email', 'password', 'password_confirmation', 'token'),
+            function (User $user, string $password) {
+                $user->forceFill([
+                    'password' => Hash::make($password),
+                    'remember_token' => Str::random(60),
+                ])->save();
+
+                // Revoga TODOS os tokens Sanctum após reset
+                if (method_exists($user, 'tokens')) {
+                    $user->tokens()->delete();
+                }
+
+                event(new PasswordReset($user));
+            }
+        );
+
+        if ($status === Password::PASSWORD_RESET) {
+            return response()->json(['message' => __($status)], Response::HTTP_OK);
+        }
+
+        return response()->json(['message' => __($status)], Response::HTTP_UNPROCESSABLE_ENTITY);
     }
 }

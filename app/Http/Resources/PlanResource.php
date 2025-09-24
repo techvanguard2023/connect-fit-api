@@ -12,7 +12,7 @@ class PlanResource extends JsonResource
         $slug = $this->slug ?? Str::slug($this->name); // use 'slug' se existir
 
         return [
-            'id'          => $slug,
+            'id'          => $this->id,
             'name'        => $this->name,
             'price'       => (float) $this->price,
             'period'      => $this->period === 'monthly' ? 'mês' : $this->period,

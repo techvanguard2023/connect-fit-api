@@ -5,6 +5,7 @@ use Illuminate\Support\Facades\Route;
 
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlanController;
+use App\Http\Controllers\StripeController;
 
 //Admin
 use App\Http\Controllers\Admin\EmployeeController;
@@ -35,21 +36,25 @@ Route::prefix('v1')->group(function () {
 
 
     Route::post('/register/user', [AuthController::class, 'register']);
+    Route::post('/password/forgot', [AuthController::class, 'forgotPassword']);
+    Route::post('/password/reset',  [AuthController::class, 'resetPassword']);
 
+    Route::post('/stripe/webhook', [StripeController::class, 'webhook']); // sem auth
 
-    Route::middleware(['auth:sanctum'])->group(function () {
-        Route::middleware('user')->group(function () {
-            Route::get('/user/dashboard', [UserController::class, 'index']);
+  Route::middleware('auth:sanctum')->group(function () {
+    Route::post('/stripe/checkout', [StripeController::class, 'createCheckoutSession']);
 
-            Route::apiResource('/user/users', UserController::class);
-        });
-
-        Route::middleware('student')->group(function () {
-            Route::get('/student/series', [StudentController::class, 'series']);
-        });
-
-        Route::middleware('employee')->group(function () {
-            Route::get('/admin/painel', [EmployeeController::class, 'dashboard']);
-        });
+    Route::middleware('user')->group(function () {
+      Route::get('/user/dashboard', [UserController::class, 'index']);
+      Route::apiResource('/user/users', UserController::class);
     });
+
+    Route::middleware('student')->group(function () {
+      Route::get('/student/series', [StudentController::class, 'series']);
+    });
+
+    Route::middleware('employee')->group(function () {
+      Route::get('/admin/painel', [EmployeeController::class, 'dashboard']);
+    });
+  });
 });

@@ -14,6 +14,7 @@ return new class extends Migration
         Schema::create('users', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_type_id')->constrained()->onDelete('cascade');
+            $table->string('stripe_customer_id')->nullable()->index();
             $table->string('name');
             $table->string('email')->unique();
             $table->string('phone');

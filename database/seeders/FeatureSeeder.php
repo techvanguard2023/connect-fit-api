@@ -26,7 +26,7 @@ class FeatureSeeder extends Seeder
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [
-                'name' => 'Suporte por email',
+                'name' => 'Suporte por email no horário comercial',
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [
@@ -50,15 +50,27 @@ class FeatureSeeder extends Seeder
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [
-                'name' => 'Suporte prioritário',
+                'name' => 'Suporte por chat no horário comercial',
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [
-                'name' => 'Suporte 24/7',
+                'name' => 'Suporte 24/7*',
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [
                 'name' => 'IA para criação de treinos ou planos de dieta',
+                'created_at' => $now, 'updated_at' => $now,
+            ],
+            [
+                'name' => 'Mensagens por Chat',
+                'created_at' => $now, 'updated_at' => $now,
+            ],
+            [
+                'name' => 'Conexão com WhatsApp',
+                'created_at' => $now, 'updated_at' => $now,
+            ],
+            [
+                'name' => 'Banner personalizável',
                 'created_at' => $now, 'updated_at' => $now,
             ],
         ];

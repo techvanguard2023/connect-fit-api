@@ -18,6 +18,7 @@ return new class extends Migration
             $table->decimal('price', 8, 2);
             $table->text('period');
             $table->boolean('popular')->default(false);
+            $table->string('stripe_price_id')->nullable()->index();
             $table->timestamps();
         });
     }

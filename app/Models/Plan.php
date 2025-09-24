@@ -9,7 +9,7 @@ use App\Models\Subscription;
 class Plan extends Model
 {
     protected $table = 'plans';
-    protected $fillable = ['name', 'description', 'price', 'period', 'popular', 'popular'];
+    protected $fillable = ['name', 'description', 'price', 'period', 'popular', 'stripe_price_id'];
 
 
     public function features()

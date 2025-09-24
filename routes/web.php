@@ -2,6 +2,9 @@
 
 use Illuminate\Support\Facades\Route;
 
-Route::get('/', function () {
-    return view('welcome');
+// routes/web.php
+use App\Events\Ping;
+Route::get('/test-broadcast', function () {
+    broadcast(new Ping('pong'));
+    return 'ok';
 });

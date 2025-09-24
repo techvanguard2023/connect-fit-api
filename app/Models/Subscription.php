@@ -15,6 +15,7 @@ class Subscription extends Model
     protected $fillable = [
         'user_id',
         'plan_id',
+        'stripe_subscription_id',
         'start_date',
         'end_date',
         'status',
@@ -23,7 +24,7 @@ class Subscription extends Model
     protected $casts = [
         'start_date' => 'date',
         'end_date'   => 'date',
-        'status'     => 'boolean',
+        'status'     => 'string',
     ];
 
     // Relacionamentos
@@ -41,7 +42,7 @@ class Subscription extends Model
     public function scopeActive($query)
     {
         return $query
-            ->where('status', true)
+            ->where('status', 'active')
             ->whereDate('start_date', '<=', now())
             ->whereDate('end_date', '>=', now());
     }
@@ -49,7 +50,7 @@ class Subscription extends Model
     // Atributo conveniente
     public function getIsActiveAttribute(): bool
     {
-        return (bool) $this->status
+        return $this->status === 'active'
             && $this->start_date->lte(now())
             && $this->end_date->gte(now());
     }
