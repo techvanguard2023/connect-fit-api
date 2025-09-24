@@ -39,7 +39,7 @@ Route::prefix('v1')->group(function () {
     Route::post('/password/forgot', [AuthController::class, 'forgotPassword']);
     Route::post('/password/reset',  [AuthController::class, 'resetPassword']);
 
-    Route::post('/stripe/webhook', [StripeController::class, 'webhook']); // sem auth
+    Route::post('/stripe/webhook', [StripeController::class, 'webhook']);
 
   Route::middleware('auth:sanctum')->group(function () {
     Route::post('/stripe/checkout', [StripeController::class, 'createCheckoutSession']);

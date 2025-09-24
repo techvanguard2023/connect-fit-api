@@ -77,6 +77,8 @@ class StripeController extends Controller
     // POST /api/v1/stripe/webhook
     public function webhook(Request $request)
     {
+        \Illuminate\Support\Facades\Log::info($request->header('Stripe-Signature'));
+        
         $payload = $request->getContent();
         $sig     = $request->header('Stripe-Signature');
         $secret  = config('services.stripe.webhook_secret', env('STRIPE_WEBHOOK_SECRET'));
@@ -88,9 +90,7 @@ class StripeController extends Controller
         }
 
         switch ($event->type) {
-            // checkout concluído → criar/atualizar assinatura local
             case 'checkout.session.completed':
-                /** @var \Stripe\Checkout\Session $session */
                 $session = $event->data->object;
                 if (!$session->subscription) break;
 
