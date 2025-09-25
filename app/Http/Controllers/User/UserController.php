@@ -16,6 +16,14 @@ class UserController extends Controller
         return response()->json($users);
     }
 
+     public function showLoggedUser(Request $request)
+    {
+        $user = $request->user();
+        // Carregar a role e as permissões do usuário
+        $user->load('userType', 'subscriptions.plan');
+        return response()->json($user);
+    }
+
     public function store(Request $request)
     {
         $data = $request->validate([

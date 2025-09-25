@@ -47,7 +47,7 @@ class AuthController extends Controller
 
         $accessToken = $user->createToken("{$tokenPrefix}-token")->plainTextToken;
 
-        $user->load('userType', 'subscriptions');
+        $user->load('userType', 'subscriptions.plan');
 
         return response()->json([
             'status' => 200,

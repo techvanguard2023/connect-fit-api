@@ -44,16 +44,18 @@ Route::prefix('v1')->group(function () {
   Route::middleware('auth:sanctum')->group(function () {
     Route::post('/stripe/checkout', [StripeController::class, 'createCheckoutSession']);
 
-    Route::middleware('user')->group(function () {
-      Route::get('/user/dashboard', [UserController::class, 'index']);
-      Route::apiResource('/user/users', UserController::class);
+    Route::prefix('user')->group(function () {
+      Route::get('/dashboard', [UserController::class, 'index']);
+      Route::apiResource('/users', UserController::class);
+
+      Route::get('/me', [UserController::class, 'showLoggedUser']);
     });
 
-    Route::middleware('student')->group(function () {
-      Route::get('/student/series', [StudentController::class, 'series']);
+    Route::prefix('student')->group(function () {
+      Route::get('/series', [StudentController::class, 'series']);
     });
 
-    Route::middleware('employee')->group(function () {
+    Route::prefix('employee')->group(function () {
       Route::get('/admin/painel', [EmployeeController::class, 'dashboard']);
     });
   });

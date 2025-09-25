@@ -13,8 +13,21 @@ return Application::configure(basePath: dirname(__DIR__))
         health: '/up',
     )
     ->withMiddleware(function (Middleware $middleware): void {
-        //
+        // Aliases de middleware (usados nas rotas)
+        $middleware->alias([
+            'auth'     => \App\Http\Middleware\Authenticate::class,
+            'verified' => \Illuminate\Auth\Middleware\EnsureEmailIsVerified::class,
+
+            // seus aliases
+            'user'     => \App\Http\Middleware\EnsureIsUser::class,
+            'student'  => \App\Http\Middleware\EnsureIsStudent::class,
+            'employee' => \App\Http\Middleware\EnsureIsEmployee::class,
+        ]);
+
+        // (Opcional) adicionar a grupos existentes, se quiser:
+        // $middleware->appendToGroup('api', \App\Http\Middleware\AlgumGlobalParaApi::class);
     })
     ->withExceptions(function (Exceptions $exceptions): void {
         //
-    })->create();
+    })
+    ->create();
