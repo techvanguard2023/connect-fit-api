@@ -6,6 +6,9 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\StripeController;
+use App\Http\Controllers\SubscriptionController;
+
+
 
 //Admin
 use App\Http\Controllers\Admin\EmployeeController;
@@ -49,6 +52,8 @@ Route::prefix('v1')->group(function () {
       Route::apiResource('/users', UserController::class);
 
       Route::get('/me', [UserController::class, 'showLoggedUser']);
+
+      Route::apiResource('/subscriptions', SubscriptionController::class);
     });
 
     Route::prefix('student')->group(function () {
