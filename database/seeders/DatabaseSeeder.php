@@ -15,6 +15,8 @@ class DatabaseSeeder extends Seeder
     {
         $this->call(UserTypeSeeder::class);
         $this->call(GoalSeeder::class);
+        $this->call(TrainingFocusSeeder::class);
+        $this->call(NutritionSpecialtiesSeeder::class);
         $this->call(PersonalSeeder::class);
         $this->call(NutritionistSeeder::class);
         $this->call(StudentSeeder::class);

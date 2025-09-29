@@ -9,6 +9,8 @@ use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
 use App\Models\Subscription;
+use App\Models\NutritionSpecialty;
+use App\Models\TrainingFocus;
 
 class User extends Authenticatable
 {
@@ -76,5 +78,14 @@ class User extends Authenticatable
             ->latestOfMany('end_date'); // pega a de maior end_date
     }
 
-    
+    public function nutritionSpecialties()
+    {
+        return $this->belongsToMany(NutritionSpecialty::class, 'nutrition_professional_specialty');
+    }
+
+    public function trainingFocuses()
+    {
+        return $this->belongsToMany(TrainingFocus::class, 'professional_training_focus');
+    }
+
 }
