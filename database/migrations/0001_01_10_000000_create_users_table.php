@@ -22,6 +22,7 @@ return new class extends Migration
             $table->string('password');
             $table->string('profile_picture')->nullable();
             $table->boolean('opt_in')->default(false);
+            $table->json('social_infos')->nullable();
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

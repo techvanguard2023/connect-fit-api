@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('user_training_focus', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('training_focus_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('training_focus_id')->constrained('training_focuses')->onDelete('cascade');
             $table->timestamps();
         });
     }

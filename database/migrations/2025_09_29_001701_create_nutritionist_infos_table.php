@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('nutritionist_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
             $table->string('crn_number');
             $table->string('consultation_type');
             $table->boolean('has_meal_plans_ready')->default(false);

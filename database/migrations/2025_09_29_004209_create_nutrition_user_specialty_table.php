@@ -13,8 +13,8 @@ return new class extends Migration
     {
         Schema::create('nutrition_user_specialty', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained()->onDelete('cascade');
-            $table->foreignId('nutrition_specialty_id')->constrained()->onDelete('cascade');
+            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('nutrition_specialty_id')->constrained('nutrition_specialties')->onDelete('cascade');
             $table->timestamps();
         });
     }
