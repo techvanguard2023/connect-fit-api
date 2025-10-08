@@ -5,7 +5,7 @@ namespace App\Models;
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
-use App\Models\User;
+use App\Models\Customer;
 use App\Models\Plan;
 
 class Subscription extends Model
@@ -13,7 +13,7 @@ class Subscription extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = [
-        'user_id',
+        'customer_id',
         'plan_id',
         'stripe_subscription_id',
         'start_date',
@@ -28,9 +28,9 @@ class Subscription extends Model
     ];
 
     // Relacionamentos
-    public function user()
+    public function customer()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(Customer::class);
     }
 
     public function plan()

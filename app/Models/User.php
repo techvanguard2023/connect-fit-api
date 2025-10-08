@@ -23,15 +23,10 @@ class User extends Authenticatable
      * @var list<string>
      */
     protected $fillable = [
-        'user_type_id',
-        'stripe_customer_id',
         'name',
         'email',
         'phone',
         'password',
-        'profile_picture',
-        'email_verified_at',
-        'opt_in',
     ];
 
     /**
@@ -49,43 +44,5 @@ class User extends Authenticatable
      *
      * @return array<string, string>
      */
-    protected function casts(): array
-    {
-        return [
-            'email_verified_at' => 'datetime',
-            'password' => 'hashed',
-        ];
-    }
-
-    public function userType()
-    {
-        return $this->belongsTo(UserType::class);
-    }
-
-    // Um usuário tem muitas assinaturas
-    public function subscriptions()
-    {
-        return $this->hasMany(Subscription::class);
-    }
-
-    // Assinatura atual (ativa e com maior end_date)
-    public function currentSubscription()
-    {
-        return $this->hasOne(Subscription::class)
-            ->where('status', 'active')
-            ->whereDate('start_date', '<=', now())
-            ->whereDate('end_date', '>=', now())
-            ->latestOfMany('end_date'); // pega a de maior end_date
-    }
-
-    public function nutritionSpecialties()
-    {
-        return $this->belongsToMany(NutritionSpecialty::class, 'nutrition_professional_specialty');
-    }
-
-    public function trainingFocuses()
-    {
-        return $this->belongsToMany(TrainingFocus::class, 'professional_training_focus');
-    }
 
 }

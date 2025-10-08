@@ -2,12 +2,12 @@
 
 namespace Database\Seeders;
 
-use App\Models\Student;
+use App\Models\User;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
 
-class StudentSeeder extends Seeder
+class UserSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -19,19 +19,19 @@ class StudentSeeder extends Seeder
     {
         self::$password = Hash::make('Rm@150917');
 
-        $students = [
+        $users = [
             [
-                'name' => 'Estudante 01',
+                'name' => 'User 01',
                 'phone' => '1234567890',
-                'email' => 'estudante01@gmail.com',
+                'email' => 'user01@gmail.com',
                 'age' => 25,
                 'gender' => 'male',
                 'goal_id' => 1,
             ],
             [
-                'name' => 'Estudante 02',
+                'name' => 'User 02',
                 'phone' => '9876543210',
-                'email' => 'estudante02@gmail.com',
+                'email' => 'user02@gmail.com',
                 'age' => 25,
                 'gender' => 'female',
                 'goal_id' => 2,
@@ -39,8 +39,8 @@ class StudentSeeder extends Seeder
 
         ];
 
-        foreach ($students as $data) {
-            Student::create([
+        foreach ($users as $data) {
+            User::create([  
                 ...$data,
                 'password' => self::$password,
             ]);

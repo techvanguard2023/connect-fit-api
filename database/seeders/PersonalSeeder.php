@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -26,7 +26,7 @@ class PersonalSeeder extends Seeder
         ];
 
         foreach ($personal as $data) {
-            User::create([
+            Customer::create([
                 ...$data,
                 'password' => self::$password,
             ]);

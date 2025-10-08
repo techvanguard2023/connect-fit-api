@@ -3,7 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Employee;
-use App\Models\Student;
+use App\Models\Customer;
 use App\Models\User;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Validation\ValidationException;
@@ -19,16 +19,19 @@ class AuthController extends Controller
 {
     public function loginUser(Request $request)
     {
+        //Usuários podem fazer login como User
         return $this->loginWithModel($request, User::class, 'user');
     }
 
-    public function loginStudent(Request $request)
+    public function loginCustomer(Request $request)
     {
-        return $this->loginWithModel($request, Student::class, 'student');
+        //Personais ou Nutricionistas podem fazer login como Customer
+        return $this->loginWithModel($request, Customer::class, 'customer');
     }
 
     public function loginEmployee(Request $request)
     {
+        //Funcionários podem fazer login como Employee
         return $this->loginWithModel($request, Employee::class, 'employee');
     }
 
@@ -63,7 +66,7 @@ class AuthController extends Controller
     {
         return response()->json([
             'authenticated' => true,
-            'user' => $request->user()
+            'customer' => $request->user()
         ]);
     }
 
@@ -81,7 +84,7 @@ class AuthController extends Controller
         $data = $request->validate([
             'user_type_id'      => ['required', 'integer', 'exists:user_types,id'],
             'name'              => ['required', 'string', 'max:255'],
-            'email'             => ['required', 'email', 'max:255', 'unique:users,email'],
+            'email'             => ['required', 'email', 'max:255', 'unique:customers,email'],
             'phone'             => ['required', 'string', 'max:50'],
             'password'          => ['required', PasswordRule::min(8)->mixedCase()->numbers()->symbols()],
             'profile_picture'   => ['nullable', 'string', 'max:2048'],
@@ -89,17 +92,17 @@ class AuthController extends Controller
             'opt_in'            => ['required', 'boolean'],
         ]);
 
-        $user = DB::transaction(function () use ($data) {
-            return User::create($data);
+        $customer = DB::transaction(function () use ($data) {
+            return Customer::create($data);
         });
 
-        $user->load('userType', 'subscriptions');
+        $customer->load('userType', 'subscriptions');
 
         // Token de acesso via Sanctum
-        $token = $user->createToken('api')->plainTextToken;
+        $token = $customer->createToken('api')->plainTextToken;
 
         return response()->json([
-            'user'  => $user,
+            'customer'  => $customer,
             'token' => $token,
         ], Response::HTTP_CREATED);
     }

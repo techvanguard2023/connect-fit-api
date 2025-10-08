@@ -15,7 +15,7 @@ class SubscriptionSeeder extends Seeder
     {
         $subscription = [
             [
-                'user_id' => 5,
+                'customer_id' => 5,
                 'plan_id' => 1,
                 'stripe_subscription_id' => 'sub_1SAtLOAOSYhc3rrQr6JvIzX9',
                 'start_date' => '2025-09-24',

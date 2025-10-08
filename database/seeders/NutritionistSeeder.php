@@ -2,7 +2,7 @@
 
 namespace Database\Seeders;
 
-use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 use Illuminate\Support\Facades\Hash;
@@ -27,7 +27,7 @@ class NutritionistSeeder extends Seeder
         ];
 
         foreach ($nutritionists as $data) {
-            User::create([
+            Customer::create([
                 ...$data,
                 'password' => self::$password,
             ]);

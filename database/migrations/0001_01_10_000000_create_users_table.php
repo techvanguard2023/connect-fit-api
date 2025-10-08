@@ -13,34 +13,17 @@ return new class extends Migration
     {
         Schema::create('users', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_type_id')->constrained()->onDelete('cascade');
-            $table->string('stripe_customer_id')->nullable()->index();
             $table->string('name');
             $table->string('email')->unique();
-            $table->string('phone');
-            $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
+            $table->string('phone');
+            $table->integer('age');
+            $table->string('gender');
+            $table->foreignId('goal_id')->constrained('goals')->onDelete('cascade');
+            $table->string('notes')->nullable();
             $table->string('profile_picture')->nullable();
-            $table->boolean('opt_in')->default(false);
-            $table->json('social_infos')->nullable();
-            $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();
-        });
-
-        Schema::create('password_reset_tokens', function (Blueprint $table) {
-            $table->string('email')->primary();
-            $table->string('token');
-            $table->timestamp('created_at')->nullable();
-        });
-
-        Schema::create('sessions', function (Blueprint $table) {
-            $table->string('id')->primary();
-            $table->foreignId('user_id')->nullable()->index();
-            $table->string('ip_address', 45)->nullable();
-            $table->text('user_agent')->nullable();
-            $table->longText('payload');
-            $table->integer('last_activity')->index();
         });
     }
 

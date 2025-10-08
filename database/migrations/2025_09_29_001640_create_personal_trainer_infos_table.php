@@ -13,7 +13,7 @@ return new class extends Migration
     {
         Schema::create('personal_trainer_infos', function (Blueprint $table) {
             $table->id();
-            $table->foreignId('user_id')->constrained('users')->onDelete('cascade');
+            $table->foreignId('customer_id')->constrained('customers')->onDelete('cascade');
             $table->string('certifications');
             $table->json('training_focus');
             $table->integer('experience_years');

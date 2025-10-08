@@ -4,6 +4,7 @@ namespace App\Models;
 
 use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Customer;
 
 class UserType extends Model
 {
@@ -15,8 +16,8 @@ class UserType extends Model
     ];
 
     /** @return \Illuminate\Database\Eloquent\Relations\HasMany */
-    public function users()
+    public function customers()
     {
-        return $this->hasMany(User::class);
+        return $this->hasMany(Customer::class);
     }
 }

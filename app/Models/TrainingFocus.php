@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Customer;
 
 class TrainingFocus extends Model
 {
@@ -11,8 +12,8 @@ class TrainingFocus extends Model
         'name',
     ];
 
-    public function users()
+    public function customers()
     {
-        return $this->belongsToMany(User::class, 'professional_training_focus');
+        return $this->belongsToMany(Customer::class, 'professional_training_focus');
     }
 }

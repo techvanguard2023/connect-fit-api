@@ -20,7 +20,7 @@ return Application::configure(basePath: dirname(__DIR__))
 
             // seus aliases
             'user'     => \App\Http\Middleware\EnsureIsUser::class,
-            'student'  => \App\Http\Middleware\EnsureIsStudent::class,
+            'customer'  => \App\Http\Middleware\EnsureIsCustomer::class,
             'employee' => \App\Http\Middleware\EnsureIsEmployee::class,
         ]);
 

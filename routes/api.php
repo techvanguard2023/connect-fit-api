@@ -16,8 +16,8 @@ use App\Http\Controllers\Admin\EmployeeController;
 //Personal
 use App\Http\Controllers\User\UserController;
 
-//Student
-use App\Http\Controllers\Student\StudentController;
+//Customer
+use App\Http\Controllers\Customer\CustomerController;
 
 
 
@@ -29,7 +29,7 @@ Route::prefix('v1')->group(function () {
     });
 
     Route::post('/login/user', [AuthController::class, 'loginUser']);
-    Route::post('/login/student', [AuthController::class, 'loginStudent']);
+    Route::post('/login/customer', [AuthController::class, 'loginCustomer']);
     Route::post('/login/admin', [AuthController::class, 'loginEmployee']);
 
     Route::post('/logout', [AuthController::class, 'logout'])->middleware('auth:sanctum');
@@ -38,7 +38,7 @@ Route::prefix('v1')->group(function () {
     Route::get('/plans', [PlanController::class, 'index']);
 
 
-    Route::post('/register/user', [AuthController::class, 'register']);
+    Route::post('/register/customer', [AuthController::class, 'register']);
     Route::post('/password/forgot', [AuthController::class, 'forgotPassword']);
     Route::post('/password/reset',  [AuthController::class, 'resetPassword']);
 
@@ -47,19 +47,20 @@ Route::prefix('v1')->group(function () {
   Route::middleware('auth:sanctum')->group(function () {
     Route::post('/stripe/checkout', [StripeController::class, 'createCheckoutSession']);
 
+    //Usuário
     Route::prefix('user')->group(function () {
       Route::get('/dashboard', [UserController::class, 'index']);
       Route::apiResource('/users', UserController::class);
+    });
 
-      Route::get('/me', [UserController::class, 'showLoggedUser']);
+    //Cliente
+    Route::prefix('customers')->group(function () {
+      Route::get('/me', [CustomerController::class, 'showLoggedUser']);
 
       Route::apiResource('/subscriptions', SubscriptionController::class);
     });
 
-    Route::prefix('student')->group(function () {
-      Route::get('/series', [StudentController::class, 'series']);
-    });
-
+    //Funcionário
     Route::prefix('employee')->group(function () {
       Route::get('/admin/painel', [EmployeeController::class, 'dashboard']);
     });

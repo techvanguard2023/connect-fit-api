@@ -40,9 +40,9 @@ return [
             'driver' => 'sanctum',
             'provider' => 'users',
         ],
-        'student' => [
+        'customer' => [
             'driver' => 'sanctum',
-            'provider' => 'students',
+            'provider' => 'customers',
         ],
         'employee' => [
             'driver' => 'sanctum',
@@ -76,9 +76,9 @@ return [
             'driver' => 'eloquent',
             'model' => env('AUTH_MODEL', App\Models\User::class),
         ],
-        'students' => [
+        'customers' => [
             'driver' => 'eloquent',
-            'model' => App\Models\Student::class,
+            'model' => App\Models\Customer::class,
         ],
         'employees' => [
             'driver' => 'eloquent',

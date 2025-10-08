@@ -22,6 +22,14 @@ class UserTypeSeeder extends Seeder
                 'name' => 'Nutricionista',
                 'description' => 'Profissional especializado em orientar e montar planos alimentares para auxiliar nos objetivos dos alunos.'
             ],
+            [
+                'name' => 'Usuário',
+                'description' => 'Usuário do sistema, que pode procurar por Personais para receber treinos ou Nutricionistas para receber orientações nutricionais.'
+            ],
+            [
+                'name' => 'Funcionário',
+                'description' => 'Usuário com acesso ao sistema, podendo gerenciar usuários, planos, etc.'
+            ],
         ];
 
         foreach ($userTypes as $userType) {

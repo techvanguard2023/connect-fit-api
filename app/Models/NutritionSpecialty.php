@@ -3,6 +3,7 @@
 namespace App\Models;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Models\Customer;
 
 class NutritionSpecialty extends Model
 {
@@ -12,8 +13,8 @@ class NutritionSpecialty extends Model
         'name',
     ];
 
-    public function users()
+    public function customers()
     {
-        return $this->belongsToMany(User::class, 'nutrition_professional_specialty');
+        return $this->belongsToMany(Customer::class, 'nutrition_professional_specialty');
     }
 }
