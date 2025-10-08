@@ -6,7 +6,7 @@ namespace App\Http\Controllers\Customer;
 use App\Http\Controllers\Controller;
 use App\Models\Customer;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Rule;
+
 use Symfony\Component\HttpFoundation\Response;
 
 class CustomerController extends Controller
@@ -54,7 +54,7 @@ class CustomerController extends Controller
         $data = $request->validate([
             'user_type_id'       => ['sometimes', 'required', 'integer', 'exists:user_types,id'],
             'name'               => ['sometimes', 'required', 'string', 'max:255'],
-            'email'              => ['sometimes', 'required', 'email', 'max:255', Rule::unique('customers', 'email')->ignore($customer->id)],
+            'email'              => ['sometimes', 'required', 'email', 'max:255', \Illuminate\Validation\Rule::unique('customers', 'email')->ignore($customer->id)],
             'phone'              => ['sometimes', 'required', 'string', 'max:50'],
             'password'           => ['sometimes', 'nullable', 'string', 'min:8'],
             'profile_picture'    => ['nullable', 'string', 'max:2048'],
