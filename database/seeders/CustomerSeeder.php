@@ -32,5 +32,10 @@ class CustomerSeeder extends Seeder
             'profile_picture' => 'https://media.licdn.com/dms/image/v2/D4D03AQG7x2GpWs2iCA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1687782341784?e=1762992000&v=beta&t=YCnfcHXswT2UWzmQH8Xnhjrgolv5rJrZfvCnw1UyU8g',
             'opt_in' => 1,
         ]);
+
+         $this->call(SubscriptionSeeder::class);
+         $this->call(PersonalTrainerInfoSeeder::class);
+         $this->call(CustomerTrainingFocusSeeder::class);
+         $this->call(CustomerAddressSeeder::class);
     }
 }

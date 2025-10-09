@@ -63,8 +63,15 @@ class Customer extends Model
         return $this->belongsToMany(NutritionSpecialty::class, 'nutrition_professional_specialty');
     }
 
+    public function personalTrainerInfo()
+    {
+        return $this->hasOne(PersonalTrainerInfo::class);
+    }
+
     public function trainingFocuses()
     {
-        return $this->belongsToMany(TrainingFocus::class, 'professional_training_focus');
+        // tabela pivot, foreignPivotKey (customer_id), relatedPivotKey (training_focus_id)
+        return $this->belongsToMany(\App\Models\TrainingFocus::class, 'customer_training_focus', 'customer_id', 'training_focus_id');
     }
+
 }
