@@ -20,6 +20,7 @@ class Customer extends Model
         'phone',
         'password',
         'profile_picture',
+        'cover_photo',
         'email_verified_at',
         'opt_in',
     ];

@@ -14,7 +14,7 @@ class FeatureSeeder extends Seeder
 
         $features = [
             [
-                'name' => 'Até 20 alunos',
+                'name' => 'Até 5 alunos',
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [
@@ -30,7 +30,7 @@ class FeatureSeeder extends Seeder
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [
-                'name' => 'Até 100 alunos',
+                'name' => 'Até 50 alunos',
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [

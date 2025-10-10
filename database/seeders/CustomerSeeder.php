@@ -30,6 +30,7 @@ class CustomerSeeder extends Seeder
             'phone' => '21981321890',
             'password' => self::$password,
             'profile_picture' => 'https://media.licdn.com/dms/image/v2/D4D03AQG7x2GpWs2iCA/profile-displayphoto-shrink_800_800/profile-displayphoto-shrink_800_800/0/1687782341784?e=1762992000&v=beta&t=YCnfcHXswT2UWzmQH8Xnhjrgolv5rJrZfvCnw1UyU8g',
+            'cover_photo' => 'https://newlimit.com.br/themes/newlimit/assets/images/banner-01.jpg',
             'opt_in' => 1,
         ]);
 

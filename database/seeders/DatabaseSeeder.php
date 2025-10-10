@@ -24,5 +24,7 @@ class DatabaseSeeder extends Seeder
         $this->call(PlanSeeder::class);
         $this->call(FeatureSeeder::class);
         $this->call(FeaturePlanSeeder::class);
+        $this->call(MuscleGroupsSeeder::class);
+        $this->call(ExercisesSeeder::class);
     }
 }
