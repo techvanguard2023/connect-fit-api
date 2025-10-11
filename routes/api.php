@@ -6,8 +6,6 @@ use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\PlanController;
 use App\Http\Controllers\StripeController;
-use App\Http\Controllers\SubscriptionController;
-
 
 
 //Admin
@@ -18,6 +16,8 @@ use App\Http\Controllers\User\UserController;
 
 //Customer
 use App\Http\Controllers\Customer\CustomerController;
+use App\Http\Controllers\Customer\MuscleGroupController;
+use App\Http\Controllers\SubscriptionController;
 
 
 
@@ -58,6 +58,8 @@ Route::prefix('v1')->group(function () {
       Route::get('/me', [CustomerController::class, 'showLoggedUser']);
 
       Route::apiResource('/subscriptions', SubscriptionController::class);
+
+      Route::apiResource('/muscle-groups', MuscleGroupController::class);
     });
 
     //Funcionário
