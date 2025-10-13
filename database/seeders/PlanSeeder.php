@@ -16,7 +16,7 @@ class PlanSeeder extends Seeder
         $plans = [
             [
                 'name'        => 'Básico',
-                'description' => 'Perfeito para personal trainers iniciantes',
+                'description' => 'Perfeito para quem está começando',
                 'price'       => 29.90,
                 'period'      => 'monthly',
                 'popular'     => false,

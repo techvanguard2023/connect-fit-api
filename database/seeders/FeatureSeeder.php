@@ -14,11 +14,11 @@ class FeatureSeeder extends Seeder
 
         $features = [
             [
-                'name' => 'Até 5 alunos',
+                'name' => 'Até 3 alunos',
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [
-                'name' => 'Criação de treinos básicos',
+                'name' => 'Criação de treinos ou dietas básicas',
                 'created_at' => $now, 'updated_at' => $now,
             ],
             [
