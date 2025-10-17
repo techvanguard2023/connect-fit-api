@@ -74,5 +74,10 @@ class Customer extends Model
         // tabela pivot, foreignPivotKey (customer_id), relatedPivotKey (training_focus_id)
         return $this->belongsToMany(\App\Models\TrainingFocus::class, 'customer_training_focus', 'customer_id', 'training_focus_id');
     }
+    
+    public function customerAddresses()
+    {
+        return $this->hasMany(CustomerAddress::class);
+    }
 
 }

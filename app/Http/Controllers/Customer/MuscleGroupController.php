@@ -10,16 +10,16 @@ use Illuminate\Http\Request;
 
 class MuscleGroupController extends Controller
 {
-    public function index(Request $request)
+    public function index()
     {
-        $muscleGroups = MuscleGroup::withCount('exercises')->get();
+        $muscleGroups = MuscleGroup::orderBy('name', 'asc')->withCount('exercises')->get();
         return response()->json($muscleGroups);
     }
 
 
     public function show(Request $request, $id)
     {
-        $muscleGroup = MuscleGroup::with('exercises')->find($id);
+        $muscleGroup = MuscleGroup::orderBy('name', 'asc')->with('exercises')->find($id);
         if (!$muscleGroup) {
             return response()->json(['message' => 'Grupo muscular não encontrado'], 404);
         }

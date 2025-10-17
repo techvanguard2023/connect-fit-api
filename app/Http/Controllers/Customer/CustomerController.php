@@ -21,7 +21,7 @@ class CustomerController extends Controller
     {
         $customer = $request->user();
         // Carregar a role e as permissões do usuário
-        $customer->load('userType', 'subscriptions.plan');
+        $customer->load('userType', 'subscriptions.plan', 'trainingFocuses', 'personalTrainerInfo', 'customerAddresses');
         return response()->json($customer);
     }
 

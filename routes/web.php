@@ -8,3 +8,7 @@ Route::get('/test-broadcast', function () {
     broadcast(new Ping('pong'));
     return 'ok';
 });
+
+Route::get('/', function () {
+    return view('home.index');
+});

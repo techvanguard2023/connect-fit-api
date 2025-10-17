@@ -17,7 +17,7 @@ use App\Http\Controllers\User\UserController;
 //Customer
 use App\Http\Controllers\Customer\CustomerController;
 use App\Http\Controllers\Customer\MuscleGroupController;
-use App\Http\Controllers\SubscriptionController;
+use App\Http\Controllers\Customer\SubscriptionController;
 
 
 

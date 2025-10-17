@@ -4,7 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Models\Plan;
 use App\Models\Subscription;
-use App\Models\User;
+use App\Models\Customer;
 use Illuminate\Http\Request;
 use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
@@ -21,20 +21,24 @@ class StripeController extends Controller
     }
 
     // cria (ou recupera) o customer na Stripe
-    private function ensureStripeCustomer(User $user): string
+    private function ensureStripeCustomer(Customer $customer): string
     {
-        if ($user->stripe_customer_id) {
-            return $user->stripe_customer_id;
+        if ($customer->stripe_customer_id) {
+            return $customer->stripe_customer_id;
         }
-        $customer = $this->stripe->customers->create([
-            'email' => $user->email,
-            'name'  => $user->name,
-            'metadata' => ['app_user_id' => (string)$user->id],
+        
+        $stripeCustomer = $this->stripe->customers->create([
+            'email' => $customer->email,
+            'name'  => $customer->name,
+            'metadata' => ['app_customer_id' => (string)$customer->id],
         ]);
-        $user->stripe_customer_id = $customer->id;
-        $user->save();
-        return $customer->id;
+        
+        $customer->stripe_customer_id = $stripeCustomer->id;
+        $customer->save();
+        
+        return $stripeCustomer->id;
     }
+
 
     // POST /api/v1/stripe/checkout
     public function createCheckoutSession(Request $request)
@@ -43,15 +47,15 @@ class StripeController extends Controller
             'plan_id' => ['required', 'exists:plans,id'],
         ]);
 
-        /** @var User $user */
-        $user = Auth::user();
+        /** @var Customer $customer */
+        $customer = Auth::user();
         $plan = Plan::findOrFail($request->plan_id);
 
         if (!$plan->stripe_price_id) {
             return response()->json(['message' => 'Plano sem stripe_price_id configurado.'], 422);
         }
 
-        $customerId = $this->ensureStripeCustomer($user);
+        $customerId = $this->ensureStripeCustomer($customer);
 
         $success = rtrim(config('app.frontend_url', env('APP_FRONTEND_URL', 'http://localhost:5173')), '/')
                  . '/paywall/sucesso';
@@ -66,7 +70,7 @@ class StripeController extends Controller
             'cancel_url'         => $cancel,
             'allow_promotion_codes' => true,
             'metadata' => [
-                'app_user_id' => (string)$user->id,
+                'app_customer_id' => (string)$customer->id,
                 'app_plan_id' => (string)$plan->id,
             ],
         ]);
@@ -95,13 +99,13 @@ class StripeController extends Controller
                 $customerId   = $session->customer;
                 $priceId      = $session->items->data[0]->price->id ?? null;
 
-                $user = User::where('stripe_customer_id', $customerId)->first();
+                $customer = Customer::where('stripe_customer_id', $customerId)->first();
                 $plan = Plan::where('stripe_price_id', $priceId)->first();
 
-                if ($user && $plan) {
+                if ($customer && $plan) {
                     Subscription::updateOrCreate(
                         [
-                            'user_id' => $user->id,
+                            'customer_id' => $customer->id,
                             'plan_id' => $plan->id,
                             'stripe_subscription_id' => $session->id,
                         ],
@@ -119,11 +123,11 @@ class StripeController extends Controller
             case 'customer.subscription.deleted':
                 /** @var \Stripe\Subscription $sub */
                 $sub = $event->data->object;
-                $user = User::where('stripe_customer_id', $sub->customer)->first();
-                if ($user) {
+                $customer = Customer::where('stripe_customer_id', $sub->customer)->first();
+                if ($customer) {
                     Subscription::where('stripe_subscription_id', $sub->id)->update([
                         'start_date' => Carbon::createFromTimestamp($sub->items->data[0]->current_period_start)->toDateString(),
-                            'end_date'   => Carbon::createFromTimestamp($sub->items->data[0]->current_period_end)->toDateString(),
+                        'end_date'   => Carbon::createFromTimestamp($sub->items->data[0]->current_period_end)->toDateString(),
                         'status'     => in_array($sub->status, ['active', 'trialing']),
                     ]);
                 }
