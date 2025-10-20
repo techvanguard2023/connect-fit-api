@@ -13,7 +13,7 @@ class FeaturePlanSeeder extends Seeder
         $now = now();
 
         $map = [
-            'Básico' => [
+            'Básico Free' => [
                 'Até 1 alunos',
                 'Criação de treinos ou dietas básicas',
                 'Acompanhamento de evolução',
