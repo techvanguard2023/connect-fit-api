@@ -18,7 +18,7 @@ class SubscriptionSeeder extends Seeder
                 'customer_id' => 5,
                 'plan_id' => 1,
                 'stripe_subscription_id' => 'sub_1SAtLOAOSYhc3rrQr6JvIzX9',
-                'price' => '19.99',
+                'price' => '29.90',
                 'start_date' => '2025-09-24',
                 'end_date' => '2025-10-24',
                 'status' => 'active',

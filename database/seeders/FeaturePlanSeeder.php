@@ -14,13 +14,13 @@ class FeaturePlanSeeder extends Seeder
 
         $map = [
             'Básico' => [
-                'Até 3 alunos',
+                'Até 1 alunos',
                 'Criação de treinos ou dietas básicas',
                 'Acompanhamento de evolução',
                 'Suporte por email no horário comercial',
             ],
             'Profissional' => [
-                'Até 50 alunos',
+                'Até 10 alunos',
                 'Treinos avançados e personalizados',
                 'Planos de dieta completos',
                 'Relatórios detalhados',

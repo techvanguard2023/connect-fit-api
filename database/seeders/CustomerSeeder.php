@@ -24,7 +24,7 @@ class CustomerSeeder extends Seeder
 
         Customer::create([
             'user_type_id' => 1,
-            'stripe_customer_id' => 'cus_T6qu8Ffr4Aa7R5',	
+            'stripe_customer_id' => '',	
             'name' => 'Robson Gomes Pedreira',
             'email' => 'masterdba6@gmail.com',
             'phone' => '21981321890',
