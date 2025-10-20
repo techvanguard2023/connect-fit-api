@@ -16,6 +16,7 @@ class PlanResource extends JsonResource
             'name'        => $this->name,
             'price'       => (float) $this->price,
             'period'      => $this->period === 'monthly' ? 'mês' : $this->period,
+            'is_free'     => (bool) $this->is_free,
             'description' => $this->description,
             'icon'        => config("plans.icons.$slug") ?? 'Check',
             'popular'     => (bool) $this->popular,
