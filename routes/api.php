@@ -10,6 +10,9 @@ use App\Http\Controllers\StripeController;
 
 //Admin
 use App\Http\Controllers\Admin\EmployeeController;
+use App\Http\Controllers\Lead\LeadVerificationController;
+
+
 
 //Personal
 use App\Http\Controllers\User\UserController;
@@ -27,6 +30,10 @@ Route::prefix('v1')->group(function () {
     Route::get('status', function () {
         return response()->json(['status' => 'API V1 is alive!'], 200);
     });
+  
+    Route::post('/leads', [LeadVerificationController::class, 'store']);
+    Route::post('/leads/verify', [LeadVerificationController::class, 'verify']);
+    Route::post('/leads/resend', [LeadVerificationController::class, 'resend']);
 
     Route::post('/login/user', [AuthController::class, 'loginUser']);
     Route::post('/login/customer', [AuthController::class, 'loginCustomer']);

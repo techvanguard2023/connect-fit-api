@@ -19,7 +19,7 @@ return new class extends Migration
             $table->string('phone');
             $table->integer('age');
             $table->string('gender');
-            $table->foreignId('goal_id')->constrained('goals')->onDelete('cascade');
+            $table->foreignId('goal_id')->constrained('goals')->onDelete('cascade')->nullable();
             $table->string('notes')->nullable();
             $table->string('profile_picture')->nullable();
             $table->timestamps();

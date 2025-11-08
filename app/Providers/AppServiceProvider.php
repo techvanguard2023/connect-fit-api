@@ -6,12 +6,15 @@ use Illuminate\Support\ServiceProvider;
 use Illuminate\Http\Resources\Json\JsonResource;
 use Illuminate\Auth\Notifications\ResetPassword;
 use Illuminate\Notifications\Messages\MailMessage;
+use App\Services\EvolutionApi\EvolutionWhatsAppService;
 
 class AppServiceProvider extends ServiceProvider
 {
     public function register(): void
     {
-        //
+        $this->app->singleton(EvolutionWhatsAppService::class, function ($app) {
+            return new EvolutionWhatsAppService();
+        });
     }
 
     public function boot(): void
