@@ -17,10 +17,10 @@ class DatabaseSeeder extends Seeder
         $this->call(GoalSeeder::class);
         $this->call(TrainingFocusSeeder::class);
         $this->call(NutritionSpecialtiesSeeder::class);
-        $this->call(PersonalSeeder::class);
-        $this->call(NutritionistSeeder::class);
-        $this->call(UserSeeder::class);
-        $this->call(EmployeeSeeder::class);
+        //$this->call(PersonalSeeder::class);
+        //$this->call(NutritionistSeeder::class);
+        //$this->call(UserSeeder::class);
+        //$this->call(EmployeeSeeder::class);
         $this->call(PlanSeeder::class);
         $this->call(FeatureSeeder::class);
         $this->call(FeaturePlanSeeder::class);
