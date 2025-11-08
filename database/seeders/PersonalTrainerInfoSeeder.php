@@ -14,7 +14,7 @@ class PersonalTrainerInfoSeeder extends Seeder
     public function run(): void
     {
         PersonalTrainerInfo::create([
-            'customer_id' => 5,
+            'customer_id' => 1,
             'certifications' => ['Certificação Personal Trainer', 'Certificação em Nutrição'],
             'experience_years' => 5,
         ]);

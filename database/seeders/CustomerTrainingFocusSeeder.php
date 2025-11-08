@@ -14,17 +14,17 @@ class CustomerTrainingFocusSeeder extends Seeder
     public function run(): void
     {
         CustomerTrainingFocus::create([
-            'customer_id' => 5,
+            'customer_id' => 1,
             'training_focus_id' => 1,
         ]);
 
         CustomerTrainingFocus::create([
-            'customer_id' => 5,
+            'customer_id' => 1,
             'training_focus_id' => 2,
         ]);
 
         CustomerTrainingFocus::create([
-            'customer_id' => 5,
+            'customer_id' => 1,
             'training_focus_id' => 3,
         ]);
     }

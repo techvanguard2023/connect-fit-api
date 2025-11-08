@@ -14,7 +14,7 @@ class CustomerAddressSeeder extends Seeder
     public function run(): void
     {
         CustomerAddress::create([
-            'customer_id' => 5,
+            'customer_id' => 1,
             'address' => 'Avenida José Mendonça de Campos',
             'number' => '402',
             'complement' => 'Apto 704 Bloco 02',
