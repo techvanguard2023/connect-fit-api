@@ -10,5 +10,5 @@ Route::get('/test-broadcast', function () {
 });
 
 Route::get('/', function () {
-    return view('home.index');
+    return redirect('https://www.conectfit.com.br');
 });
